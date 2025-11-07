@@ -7,140 +7,119 @@
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <style>
-        body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        @keyframes blob {
-            0% { transform: translate(0px, 0px) scale(1); }
-            33% { transform: translate(30px, -50px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.9); }
-            100% { transform: translate(0px, 0px) scale(1); }
-        }
-        .animate-blob {
-            animation: blob 7s infinite;
-        }
-        .animation-delay-2000 {
-            animation-delay: 2s;
-        }
-        .animation-delay-4000 {
-            animation-delay: 4s;
-        }
-    </style>
 </head>
-<body class="antialiased bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
-    <div class="relative min-h-screen flex items-center justify-center px-4 py-12">
-        <!-- Background Decorations -->
-        <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute -top-40 -right-40 w-80 h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-            <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md">
+        <!-- Logo & Title -->
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl shadow-lg mb-4">
+                <span class="text-3xl">💰</span>
+            </div>
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">Finance App</h1>
+            <p class="text-gray-600">Kelola Keuangan Anda dengan Mudah</p>
         </div>
 
-        <!-- Main Content -->
-        <div class="relative max-w-6xl w-full">
-            <!-- Header -->
-            <div class="text-center mb-12">
-                <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl shadow-lg mb-6 transform hover:scale-110 transition-transform duration-300">
-                    <span class="text-4xl">💰</span>
-                </div>
-                <h1 class="text-6xl font-bold text-gray-900 mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-                    Finance App
-                </h1>
-                <p class="text-2xl text-gray-600 font-light">Kelola Keuangan Anda dengan Mudah</p>
-            </div>
-
-            <!-- Feature Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                <!-- Feature 1 -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-gray-100">
-                    <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4">
-                        <span class="text-2xl">✅</span>
+        <!-- Main Card -->
+        <div class="bg-white rounded-2xl shadow-2xl p-8 mb-6">
+            @if (Route::has('login'))
+                @auth
+                    <!-- Jika sudah login -->
+                    <div class="text-center">
+                        <div class="mb-6">
+                            <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <h2 class="text-2xl font-bold text-gray-800 mb-2">Selamat Datang Kembali!</h2>
+                            <p class="text-gray-600 mb-6">Anda sudah login sebagai <span class="font-semibold">{{ Auth::user()->name }}</span></p>
+                        </div>
+                        <a href="{{ route('transactions.index') }}" class="block w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
+                            <span class="text-lg">📊 Buka Dashboard</span>
+                        </a>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">Pencatatan Lengkap</h3>
-                    <p class="text-sm text-gray-600">Catat pemasukan dan pengeluaran dengan detail lengkap</p>
-                </div>
+                @else
+                    <!-- Jika belum login -->
+                    <div class="space-y-4">
+                        <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">Mulai Sekarang</h2>
+                        
+                        <!-- Login Button -->
+                        <a href="{{ route('login') }}" class="block w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 text-center">
+                            <div class="flex items-center justify-center">
+                                <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                                </svg>
+                                <span class="text-lg">Login</span>
+                            </div>
+                        </a>
 
-                <!-- Feature 2 -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-gray-100">
-                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                        <!-- Divider -->
+                        <div class="relative">
+                            <div class="absolute inset-0 flex items-center">
+                                <div class="w-full border-t border-gray-300"></div>
+                            </div>
+                            <div class="relative flex justify-center text-sm">
+                                <span class="px-4 bg-white text-gray-500 font-medium">atau</span>
+                            </div>
+                        </div>
+
+                        @if (Route::has('register'))
+                            <!-- Register Button -->
+                            <a href="{{ route('register') }}" class="block w-full bg-white hover:bg-gray-50 text-gray-800 font-bold py-4 px-6 rounded-xl border-2 border-gray-300 hover:border-indigo-500 shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-center">
+                                <div class="flex items-center justify-center">
+                                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                                    </svg>
+                                    <span class="text-lg">Daftar Akun Baru</span>
+                                </div>
+                            </a>
+                        @endif
+                    </div>
+
+                    <!-- Info Text -->
+                    <div class="mt-6 text-center">
+                        <p class="text-sm text-gray-500">Gratis dan mudah digunakan</p>
+                    </div>
+                @endauth
+            @endif
+        </div>
+
+        <!-- Features -->
+        <div class="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-lg">
+            <h3 class="text-sm font-bold text-gray-700 mb-4 text-center uppercase tracking-wide">Fitur Utama</h3>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-2">
+                        <span class="text-2xl">📝</span>
+                    </div>
+                    <p class="text-xs text-gray-600 font-medium">Catat Transaksi</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-2">
                         <span class="text-2xl">📊</span>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">Statistik Visual</h3>
-                    <p class="text-sm text-gray-600">Lihat pola keuangan dengan grafik interaktif</p>
+                    <p class="text-xs text-gray-600 font-medium">Lihat Statistik</p>
                 </div>
-
-                <!-- Feature 3 -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-gray-100">
-                    <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-2">
                         <span class="text-2xl">🔍</span>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">Filter & Pencarian</h3>
-                    <p class="text-sm text-gray-600">Temukan transaksi dengan cepat dan mudah</p>
+                    <p class="text-xs text-gray-600 font-medium">Filter Data</p>
                 </div>
-
-                <!-- Feature 4 -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-gray-100">
-                    <div class="w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center mb-4">
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mx-auto mb-2">
                         <span class="text-2xl">📷</span>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">Upload Bukti</h3>
-                    <p class="text-sm text-gray-600">Simpan foto struk atau bukti transaksi</p>
+                    <p class="text-xs text-gray-600 font-medium">Upload Bukti</p>
                 </div>
             </div>
+        </div>
 
-            <!-- CTA Buttons -->
-            <div class="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-12 text-center border border-gray-100">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Mulai Kelola Keuangan Anda Sekarang!</h2>
-                <p class="text-gray-600 mb-8 text-lg">Daftar gratis dan dapatkan kendali penuh atas keuangan Anda</p>
-                
-                @if (Route::has('login'))
-                    <div class="flex flex-col sm:flex-row justify-center gap-4">
-                        @auth
-                            <a href="{{ route('transactions.index') }}" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-                                <span class="mr-2">📱</span>
-                                Buka Dashboard
-                            </a>
-                        @else
-                            <a href="{{ route('login') }}" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl hover:from-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-                                <span class="mr-2">🔐</span>
-                                Login
-                            </a>
-                            
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-green-600 to-green-700 rounded-xl hover:from-green-700 hover:to-green-800 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-                                    <span class="mr-2">✨</span>
-                                    Daftar Gratis
-                                </a>
-                            @endif
-                        @endauth
-                    </div>
-                @endif
-
-                <!-- Additional Info -->
-                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                    <div>
-                        <div class="text-4xl font-bold text-blue-600 mb-2">100%</div>
-                        <div class="text-gray-600">Gratis Selamanya</div>
-                    </div>
-                    <div>
-                        <div class="text-4xl font-bold text-purple-600 mb-2">🔒</div>
-                        <div class="text-gray-600">Data Aman Terlindungi</div>
-                    </div>
-                    <div>
-                        <div class="text-4xl font-bold text-green-600 mb-2">📱</div>
-                        <div class="text-gray-600">Akses Kapan Saja</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Footer -->
-            <div class="text-center mt-12">
-                <p class="text-gray-600">
-                    Made with <span class="text-red-500">❤️</span> for better financial management
-                </p>
-            </div>
+        <!-- Footer -->
+        <div class="text-center mt-6">
+            <p class="text-sm text-gray-600">
+                Made with <span class="text-red-500">❤️</span> for better financial management
+            </p>
         </div>
     </div>
 </body>

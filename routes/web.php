@@ -5,6 +5,11 @@ use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+    // Jika sudah login, redirect ke transactions
+    if (auth()->check()) {
+        return redirect()->route('transactions.index');
+    }
+    // Jika belum login, tampilkan welcome page
     return view('welcome');
 });
 
