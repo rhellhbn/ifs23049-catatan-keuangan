@@ -43,8 +43,10 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
+        // TIDAK auto-login setelah register
+        // Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        // Redirect ke halaman login dengan pesan sukses
+        return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login dengan akun Anda.');
     }
 }
